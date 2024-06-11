@@ -1,7 +1,9 @@
 - name: Demo on Filters
   hosts: localhost
   vars:
-    - NAME: sivakumar
+    NAME: sivakumar
+    website: https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#best-practices
+    Greeting: Hello naresh, how are you
   tasks:
     - name: convert into uppercase
       ansible.builtin.debug:
@@ -9,3 +11,9 @@
     - name: setting default value
       ansible.builtin.debug:
         msg: "Hello {{ COURSE | default('Devops') }}"
+    - name: split url
+      ansible.builtin.debug:
+        msg: "{{ website | urlsplit('hostname') }}"
+    - name: split word
+      ansible.builtin.debug:
+        msg: "{{ website | split(',') }}"
