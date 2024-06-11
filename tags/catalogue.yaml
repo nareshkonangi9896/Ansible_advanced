@@ -80,7 +80,7 @@
       tags:
         - installation
       ansible.builtin.shell: mongo --host mongodb.nareshdevops.online < /app/schema/catalogue.js
-    - name: start and enable catalogue service
+    - name: restart catalogue service
       tags:
         - deployment
       ansible.builtin.service:
