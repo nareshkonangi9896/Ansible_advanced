@@ -1,0 +1,8 @@
+- name: Demo on Filters
+  hosts: localhost
+  vars:
+    - NAME: sivakumar
+  tasks:
+    - name: convert into uppercase
+      ansible.builtin.debug:
+        msg: "Hello {{ NAME | upper }}"
