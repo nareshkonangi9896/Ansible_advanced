@@ -2,4 +2,4 @@
 67.202.2.111
 
 [mongodb:vars]
-NAME:PROD-SERVER
+NAME=PROD-SERVER

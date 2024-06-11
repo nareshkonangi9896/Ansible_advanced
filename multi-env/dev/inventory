@@ -2,4 +2,4 @@
 52.71.250.246
 
 [mongodb:vars]
-NAME:DEV-SERVER
+NAME=DEV-SERVER
