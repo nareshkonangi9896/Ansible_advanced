@@ -1,0 +1,88 @@
+- name: Catalogue setup
+  hosts: catalogue
+  become: yes
+  tasks:
+    - name: setup nodejs repo file
+      tags:
+        - installation
+      ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+    - name: Install nodejs
+      tags:
+        - installation
+      ansible.builtin.yum:
+        name: nodejs
+        state: present
+    - name: check roboshop user exit or not
+      tags:
+        - installation
+      ansible.builtin.command: id roboshop
+      register: output
+      ignore_errors: True
+    - name: Create a roboshop user
+      tags:
+        - installation 
+      ansible.builtin.user:
+        name: roboshop
+      when: output.rc!=0
+    - name: Create a directory if it does not exist
+      tags:
+        - installation
+      ansible.builtin.file:
+        path: /app/
+        state: directory
+    - name: Download catalogue.zip
+      tags:
+        - deployment
+      ansible.builtin.get_url:
+        url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+        dest: /tmp/catalogue.zip
+    - name: unzip catalogue.zip file
+      tags:
+        - deployment
+      ansible.builtin.unarchive:
+        src: /tmp/catalogue.zip
+        dest: /app/
+        remote_src: yes
+    - name: install dependencies
+      tags:
+        - deployment
+      ansible.builtin.command: npm install
+      args:
+        chdir: /app/
+    - name: copy catalogue service file
+      tags:
+      - installation
+      ansible.builtin.copy:
+        src: catalogue.service
+        dest: /etc/systemd/system/
+
+    - name: enable and start catalogue service
+      tags:
+        - installation
+      ansible.builtin.systemd_service:
+        state: started
+        daemon_reload: true
+        enabled: yes
+        name: catalogue
+    - name: copy mongodb repo file
+      tags:
+        - installation
+      ansible.builtin.copy:
+        src: mongo.repo
+        dest: /etc/yum.repos.d/
+    - name: Install mongodb client
+      tags:
+        - installation
+      ansible.builtin.yum:
+        name: mongodb-org-shell
+        state: present
+    - name: Load schema
+      tags:
+        - installation
+      ansible.builtin.shell: mongo --host mongodb.nareshdevops.online < /app/schema/catalogue.js
+    - name: start and enable catalogue service
+      tags:
+        - deployment
+      ansible.builtin.service:
+        name: catalogue
+        state: restarted
