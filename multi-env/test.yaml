@@ -1,4 +1,4 @@
-- name: Installing Roboshop project
+- name: Testing variables
   hosts: mongodb
   become: yes
   tasks:
