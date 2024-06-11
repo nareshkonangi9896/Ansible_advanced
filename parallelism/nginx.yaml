@@ -1,4 +1,4 @@
-- name: web setup
+- name: parallelism
   hosts: nginx
   become: yes
   tasks:
