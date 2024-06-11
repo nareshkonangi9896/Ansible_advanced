@@ -1,7 +1,6 @@
 - name: Testing variables
   hosts: mongodb
-  become: yes
   tasks:
     - name: print message with variables
       ansible.builtin.debug:
-        msg: "This is from {{ NAME }}""
+        msg: {{ NAME }}
