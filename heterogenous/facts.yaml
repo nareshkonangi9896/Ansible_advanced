@@ -1,0 +1,10 @@
+- name: Heterogenous
+  hosts: centos:ubuntu
+  become: yes
+  tasks:
+    - name: print facts
+      ansible.builtin.debug:
+        msg: "All facts: {{ ansible_facts }}"
+    - name: add user
+      ansible.builtin.user:
+        name: roboshop
