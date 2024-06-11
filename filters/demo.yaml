@@ -16,4 +16,4 @@
         msg: "{{ website | urlsplit('hostname') }}"
     - name: split word
       ansible.builtin.debug:
-        msg: "{{ website | split(',') }}"
+        msg: "{{ Greeting | split(',') }}"
