@@ -10,7 +10,7 @@
     #     name: roboshop
     - name: add user centos
       ansible.builtin.command: useradd naresh
-      when: ansible_facts.['distribution'] == 'centos'
+      when: ansible_facts.['distribution'] == "centos"
     - name: add user ubuntu
       ansible.builtin.command: adduser naresh
-      when: ansible_facts.['distribution]' == 'ubuntu'
+      when: ansible_facts.['distribution]' == "ubuntu"
