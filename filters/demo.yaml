@@ -6,6 +6,6 @@
     - name: convert into uppercase
       ansible.builtin.debug:
         msg: "Hello {{ NAME | upper }}"
-    - name: convert into uppercase
+    - name: setting default value
       ansible.builtin.debug:
         msg: "Hello {{ COURSE | default('Devops') }}"
