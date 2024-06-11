@@ -5,17 +5,13 @@
     - name: print facts
       ansible.builtin.debug:
         msg: "All facts: {{ ansible_facts }}"
-    - name: add user
-      ansible.builtin.yum:
-        name: nginx
-        state: installed
     # - name: add user
     #   ansible.builtin.user:
     #     name: roboshop
-    # - name: add user ubuntu
-    #   ansible.builtin.command: adduser naresh
-    #   when: ansible_facts['distribution'] == "Ubuntu"
+    - name: add user ubuntu
+      ansible.builtin.command: adduser naresh
+      when: ansible_facts['distribution'] == "Ubuntu"
 
-    # - name: add user centos
-    #   ansible.builtin.command: useradd naresh
-    #   when: ansible_facts['distribution'] == "CentOS"
+    - name: add user centos
+      ansible.builtin.command: useradd naresh
+      when: ansible_facts['distribution'] == "CentOS"
